@@ -1,56 +1,91 @@
 # name: vk.com
 # about: Authenticate with discourse with vk.com, see more at: https://vk.com/developers.php?id=-1_37230422&s=1
-# version: 0.1.0
 # author: Sam Saffron
 
 gem 'omniauth-vkontakte', '1.3.3'
 
-class VkAuthenticator < ::Auth::Authenticator
-
-  SCOPE = 'email'
+class Auth::VkAuthenticator < ::Auth::Authenticator
 
   def name
     'vkontakte'
   end
 
   def after_authenticate(auth_token)
+
     result = Auth::Result.new
 
-    # grap the info we need from omni auth
-    data = auth_token[:info]
-    raw_info = auth_token["extra"]["raw_info"]
-    name = data["name"]
-    email = data["email"]
-    vk_uid = auth_token["uid"]
+    session_info = parse_auth_token(auth_token)
+    vkontakte_hash = session_info[:vkontakte]
 
-    # plugin specific data storage
-    current_info = ::PluginStore.get("vk", "vk_uid_#{vk_uid}")
+    result.email = email = session_info[:email]
+    result.email_valid = !email.blank?
+    result.name = vkontakte_hash[:name]
 
-    result.user =
-      if current_info
-        User.where(id: current_info[:user_id]).first
-      end
+    result.extra_data = vkontakte_hash
 
-    result.name = name
-    result.email = email
-    result.extra_data = { vk_uid: vk_uid }
+    # user_info = FacebookUserInfo.find_by(facebook_user_id: facebook_hash[:facebook_user_id])
+    # result.user = user_info.try(:user)
+
+    # if !result.user && !email.blank? && result.user = User.find_by_email(email)
+    #  FacebookUserInfo.create({user_id: result.user.id}.merge(facebook_hash))
+    # end
+
+    # if email.blank?
+    #  UserHistory.create(
+    #    action: UserHistory.actions[:facebook_no_email],
+    #    details: "name: #{facebook_hash[:name]}, facebook_user_id: #{facebook_hash[:facebook_user_id]}"
+    #  )
+    # end
 
     result
   end
 
+  # def after_create_account(user, auth)
+  #  data = auth[:extra_data]
+  #  FacebookUserInfo.create({user_id: user.id}.merge(data))
+  # end
+
   def after_create_account(user, auth)
     data = auth[:extra_data]
-    ::PluginStore.set("vk", "vk_uid_#{data[:vk_uid]}", {user_id: user.id })
+    ::PluginStore.set("vk", "vk_uid_#{data[:vkontakte_user_id]}", {user_id: user.id })
   end
 
   def register_middleware(omniauth)
-    omniauth.provider :vkontakte, :setup => lambda { |env|
-      strategy = env['omniauth.strategy']
-      strategy.options[:client_id] = SiteSetting.vk_client_id
-      strategy.options[:client_secret] = SiteSetting.vk_client_secret
-      strategy.options[:scope] = SCOPE
-    }
+    omniauth.provider :vkontakte,
+           :setup => lambda { |env|
+              strategy = env["omniauth.strategy"]
+              strategy.options[:client_id] = SiteSetting.vk_client_id
+              strategy.options[:client_secret] = SiteSetting.vk_client_id
+           },
+           :scope => "email"
   end
+
+  protected
+
+    def parse_auth_token(auth_token)
+
+      raw_info = auth_token["extra"]["raw_info"]
+      email = auth_token["info"][:email] || auth_token["info"]["email"]
+
+      # https://github.com/mamantoha/omniauth-vkontakte#authentication-hash
+
+      {
+        vkontakte: {
+          vkontakte_user_id: auth_token["uid"],
+          link: raw_info["link"],
+          username: raw_info["nickname"],
+          first_name: raw_info["first_name"],
+          last_name: raw_info["last_name"],
+          email: email,
+          gender: raw_info["sex"],
+          name: raw_info["screen_name"]
+        },
+        email: email,
+        email_valid: true
+      }
+
+    end
+
 end
 
 
