@@ -7,6 +7,8 @@ gem 'omniauth-vkontakte', '1.3.3'
 
 class VkAuthenticator < ::Auth::Authenticator
 
+  SCOPE = 'email'
+
   def name
     'vkontakte'
   end
@@ -46,6 +48,7 @@ class VkAuthenticator < ::Auth::Authenticator
       strategy = env['omniauth.strategy']
       strategy.options[:client_id] = SiteSetting.vk_client_id
       strategy.options[:client_secret] = SiteSetting.vk_client_secret
+      strategy.options[:scope] = SCOPE
     }
   end
 end
