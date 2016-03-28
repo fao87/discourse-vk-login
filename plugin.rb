@@ -18,6 +18,7 @@ class VkAuthenticator < ::Auth::Authenticator
     data = auth_token[:info]
     raw_info = auth_token["extra"]["raw_info"]
     name = data["name"]
+    email = data["email"]
     vk_uid = auth_token["uid"]
 
     # plugin specific data storage
@@ -29,6 +30,7 @@ class VkAuthenticator < ::Auth::Authenticator
       end
 
     result.name = name
+    result.email = email
     result.extra_data = { vk_uid: vk_uid }
 
     result
