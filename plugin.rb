@@ -91,7 +91,7 @@ end
 
 auth_provider :frame_width => 920,
               :frame_height => 800,
-              :authenticator => VkAuthenticator.new
+              :authenticator => Auth::VkAuthenticator.new
 
 # for icon vk we use https://github.com/raulghm/Font-Awesome-Stylus/blob/master/stylus/variables.styl
 
