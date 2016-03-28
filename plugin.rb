@@ -1,6 +1,7 @@
 # name: vk.com
 # about: Authenticate with discourse with vk.com, see more at: https://vk.com/developers.php?id=-1_37230422&s=1
-# author: Sam Saffron
+# version 0.2.0
+# author: Sam Saffron, stereobooster
 
 gem 'omniauth-vkontakte', '1.3.3'
 
@@ -23,32 +24,32 @@ class Auth::VkAuthenticator < ::Auth::Authenticator
 
     result.extra_data = vkontakte_hash
 
-    # user_info = FacebookUserInfo.find_by(facebook_user_id: facebook_hash[:facebook_user_id])
-    # result.user = user_info.try(:user)
+    user_info = VkontakteUserInfo.find_by(vkontakte_user_id: vkontakte_hash[:vkontakte_user_id])
+    result.user = user_info.try(:user)
 
-    # if !result.user && !email.blank? && result.user = User.find_by_email(email)
-    #  FacebookUserInfo.create({user_id: result.user.id}.merge(facebook_hash))
-    # end
+    if !result.user && !email.blank? && result.user = User.find_by_email(email)
+     VkontakteUserInfo.create({user_id: result.user.id}.merge(vkontakte_hash))
+    end
 
-    # if email.blank?
-    #  UserHistory.create(
-    #    action: UserHistory.actions[:facebook_no_email],
-    #    details: "name: #{facebook_hash[:name]}, facebook_user_id: #{facebook_hash[:facebook_user_id]}"
-    #  )
-    # end
+    if email.blank?
+     UserHistory.create(
+       action: UserHistory.actions[:vkontakte_no_email],
+       details: "name: #{vkontakte_hash[:name]}, vkontakte_user_id: #{vkontakte_hash[:vkontakte_user_id]}"
+     )
+    end
 
     result
   end
 
-  # def after_create_account(user, auth)
-  #  data = auth[:extra_data]
-  #  FacebookUserInfo.create({user_id: user.id}.merge(data))
-  # end
-
   def after_create_account(user, auth)
-    data = auth[:extra_data]
-    ::PluginStore.set("vk", "vk_uid_#{data[:vkontakte_user_id]}", {user_id: user.id })
+   data = auth[:extra_data]
+   VkontakteUserInfo.create({user_id: user.id}.merge(data))
   end
+
+  # def after_create_account(user, auth)
+  #   data = auth[:extra_data]
+  #   ::PluginStore.set("vk", "vk_uid_#{data[:vkontakte_user_id]}", {user_id: user.id })
+  # end
 
   def register_middleware(omniauth)
     omniauth.provider :vkontakte,
@@ -102,7 +103,7 @@ register_css <<CSS
 }
 
 .btn-social.vkontakte:before {
-  content: $fa-var-vk; 
+  content: $fa-var-vk;
 }
 
 CSS

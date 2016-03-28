@@ -6,3 +6,5 @@ ru:
       vkontakte:
         title: "с помощью VK"
         message: "Аутентификация с помощью VK (убедитесь, что всплывающие окна разрешены)"
+    share:
+      vkontakte: "vkontakte"

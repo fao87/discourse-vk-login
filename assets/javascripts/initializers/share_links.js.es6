@@ -7,12 +7,13 @@ export default {
 
     Sharing.addSource({
       id: 'vkontankte',
-      iconClass: 'fa-vk',
+      faIcon: 'fa-twitter-square',
       generateUrl: function(link, title) {
         // https://vk.com/dev/share_details
-        return ("http://vk.com/share.php?url=" + encodeURIComponent(link) + "&title=" + encodeURIComponent(title));
+        return "http://vk.com/share.php?url=" + encodeURIComponent(link) + "&title=" + encodeURIComponent(title);
       },
       shouldOpenInPopup: true,
+      // title: I18n.t('share.vkontankte'),
       popupHeight: 370
     });
 
