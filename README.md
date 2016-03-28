@@ -2,13 +2,15 @@
 
 VK.com login for Discourse
 
+**Caution**: there are no tests, use at your own risk!
+
 ## Installation
 
 ### the official Docker
 
 To install in docker, add the following to your app.yml in the plugins section:
 
-```
+```yaml
 hooks:
   after_code:
     - exec:
@@ -30,17 +32,19 @@ cd /var/discourse
 
 Just two easy steps. From your main discourse do:
 
-    cd plugins
-    git clone https://github.com/stereobooster/discourse-vk-login.git
-    cd ..
-    export RAILS_ENV=production                    # set to productions
-    cp discourse-vk-login/db/migrate/* db/migrate/ # copy migrations
-    rake db:migrate                                # run migrations
-    rake assets:precompile                         # precompile assets
-
-## Changelog:
+```
+cd plugins
+git clone https://github.com/stereobooster/discourse-vk-login.git
+cd ..
+export RAILS_ENV=production                    # set to productions
+cp discourse-vk-login/db/migrate/* db/migrate/ # copy migrations
+rake db:migrate                                # run migrations
+rake assets:precompile                         # precompile assets
+```
 
 ## TODO
+
+Add tests
 
 ## License
 
