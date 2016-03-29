@@ -28,6 +28,8 @@ cd /var/discourse
 ./launcher rebuild app
 ```
 
+Set `vk_client_id` and `vk_client_secret` settings in the users section.
+
 ### Stand-alone
 
 Just two easy steps. From your main discourse do:
@@ -44,7 +46,8 @@ rake assets:precompile                         # precompile assets
 
 ## TODO
 
-Add tests
+  - Do not show button if there are no VK API keys
+  - Add tests
 
 ## License
 
