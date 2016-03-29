@@ -3,7 +3,7 @@
 # version 0.2.0
 # author: Sam Saffron, stereobooster
 
-gem 'omniauth-vkontakte', '1.3.3'
+gem 'omniauth-vkontakte', '1.3.6'
 
 class Auth::VkAuthenticator < ::Auth::Authenticator
 
