@@ -56,7 +56,7 @@ class Auth::VkAuthenticator < ::Auth::Authenticator
            :setup => lambda { |env|
               strategy = env["omniauth.strategy"]
               strategy.options[:client_id] = SiteSetting.vk_client_id
-              strategy.options[:client_secret] = SiteSetting.vk_client_id
+              strategy.options[:client_secret] = SiteSetting.vk_client_secret
            },
            :scope => "email"
   end
