@@ -1,7 +1,7 @@
 import Sharing from 'discourse/lib/sharing';
 
 export default {
-  name: 'vk-share-link',
+  name: 'discourse-vk-login',
 
   initialize: function() {
 

@@ -46,6 +46,8 @@ rake assets:precompile                         # precompile assets
 
 ## TODO
 
+  - Fix share button
+  - Fix plugin settings
   - Do not show button if there are no VK API keys
   - Add tests
 
