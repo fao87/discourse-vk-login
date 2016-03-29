@@ -1,0 +1,9 @@
+// for icon vk we use https://github.com/raulghm/Font-Awesome-Stylus/blob/master/stylus/variables.styl
+
+.btn-social.vkontakte {
+  background: #46698f;
+}
+
+.btn-social.vkontakte:before {
+  content: $fa-var-vk;
+}

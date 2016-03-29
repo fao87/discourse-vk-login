@@ -1,4 +1,5 @@
 require File.expand_path('../vk/engine', __FILE__)
+require File.expand_path('../vk/authenticator', __FILE__)
 
 module Vk
   module VkExtender

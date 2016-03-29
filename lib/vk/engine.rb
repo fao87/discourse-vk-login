@@ -8,7 +8,6 @@ module Vk
     config.to_prepare do
       # inject our dependencies
       # runs once in production, before every request in development
-      # User.class_eval { has_one :vkontakte_user_info, dependent: :destroy }
       User.send(:include, Vk::VkExtender)
     end
   end
