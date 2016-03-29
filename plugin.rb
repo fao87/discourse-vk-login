@@ -2,6 +2,10 @@
 # about: Authenticate with discourse with vk.com, see more at: https://vk.com/developers.php?id=-1_37230422&s=1
 # version 0.2.2
 # author: Sam Saffron, stereobooster
+# url: https://github.com/stereobooster/discourse-vk-login
+
+enabled_site_setting :vk_client_id
+enabled_site_setting :vk_client_secret
 
 gem 'omniauth-vkontakte', '1.3.6'
 
