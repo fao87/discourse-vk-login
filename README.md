@@ -49,3 +49,11 @@ Add tests
 ## License
 
 MIT
+
+## Development
+
+Examples of code:
+
+  - https://meta.discourse.org/t/beginners-guide-to-creating-discourse-plugins/30515
+  - https://github.com/auth0/discourse-plugin/blob/master/plugin.rb
+  - https://github.com/werweisswas/discourse-plugin-tagger/blob/master/plugin.rb

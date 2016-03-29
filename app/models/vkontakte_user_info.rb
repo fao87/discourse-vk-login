@@ -2,8 +2,6 @@ class VkontakteUserInfo < ActiveRecord::Base
   belongs_to :user
 end
 
-User.class_eval { has_one :vkontakte_user_info, dependent: :destroy }
-
 # == Schema Information
 #
 # Table name: vkontakte_user_infos

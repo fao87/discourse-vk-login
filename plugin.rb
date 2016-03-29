@@ -5,9 +5,8 @@
 
 gem 'omniauth-vkontakte', '1.3.6'
 
-# load VkontakteUserInfo model
-# TODO: there should be more reasonable way to do it
-require File.expand_path('../app//models/vkontakte_user_info.rb', __FILE__)
+# load the engine
+load File.expand_path('../lib/vk.rb', __FILE__)
 
 class VkAuthenticator < ::Auth::Authenticator
 
