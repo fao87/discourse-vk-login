@@ -7,7 +7,7 @@ export default {
 
     Sharing.addSource({
       id: 'vkontankte',
-      faIcon: 'fa-vk-square',
+      faIcon: 'fa-vk',
       generateUrl: function(link, title) {
         // https://vk.com/dev/share_details
         return "http://vk.com/share.php?url=" + encodeURIComponent(link) + "&title=" + encodeURIComponent(title);
