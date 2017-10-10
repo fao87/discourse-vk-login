@@ -1,3 +1,5 @@
+🚨 This is unsupported project. It is not recommended by Discourse see: https://meta.discourse.org/t/vk-com-login-vkontakte/12987/31
+
 # Discourse VK.com Plugin
 
 VK.com login for Discourse
