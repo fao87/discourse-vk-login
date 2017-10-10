@@ -6,3 +6,5 @@ en:
       vkontakte:
         title: "with VK"
         message: "Authenticating with VK (make sure pop up blockers are not enabled)"
+    share:
+      vkontakte: "Share link with Vkontakte"
